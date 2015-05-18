@@ -96,6 +96,7 @@ define([
     it('you should be able to return the nth number in a fibonacci sequence', function() {
       expect(answers.fibonacci(2)).to.eql(1);
       expect(answers.fibonacci(6)).to.eql(8);
+      expect(answers.fibonacci(17)).to.eql(1597)
     });
 
     it('you should be able to return the set of all valid combinations of n pairs of parentheses.', function() {

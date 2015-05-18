@@ -3,39 +3,61 @@ if (typeof define !== 'function') { var define = require('amdefine')(module); }
 define(function() {
   return {
     argsAsArray : function(fn, arr) {
+                    return fn.apply(null, arr);
+                  },
 
-    },
+  speak : function(fn, obj) {
+            return fn.call(obj);
+          },
 
-    speak : function(fn, obj) {
+  functionFunction : function(str) {
+                       return function(string){
+                         return str + ", " + string;
+                       }
+                     },
 
-    },
+  makeClosures : function(arr, fn) {
+                   var results = [];
 
-    functionFunction : function(str) {
+                   var newFn = function(num) {
+                     return function(){
+                       return fn(num);
+                     };
+                   };
 
-    },
+                   for (var i = 0, len = arr.length; i < len; i++) {
+                     results.push(newFn(arr[i]));
+                   }
+                   return results;
+                 },
 
-    makeClosures : function(arr, fn) {
+  partial : function(fn, str1, str2) {
+              return fn.bind(this, str1, str2);
 
-    },
+            },
 
-    partial : function(fn, str1, str2) {
+  useArguments : function() {
+                   var sum = Array.prototype.slice.call(arguments).reduce(function(sum, num) {
+                     return sum + num;
+                   });
+                   return sum;
+                 },
 
-    },
+  callIt : function(fn) {
+             var args = Array.prototype.slice.call(arguments, 1, arguments.length);
+             return fn.apply(null, args);
+           },
 
-    useArguments : function() {
+  partialUsingArguments : function(fn) {
+                            var args = Array.prototype.slice.call(arguments, 1, arguments.length);
+                            return function(){
+                              var extraArgs = args.concat(Array.prototype.slice.call(arguments));
+                              return fn.apply(null, extraArgs);
+                            }
+                          },
 
-    },
-
-    callIt : function(fn) {
-
-    },
-
-    partialUsingArguments : function(fn) {
-
-    },
-
-    curryIt : function(fn) {
-
-    }
+  curryIt : function(fn) {
+              //wut
+              }
   };
 });
